@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collapsible Sidebar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100%;
+      background-color: #1e293b; /* dark slate */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0;
+      transition: width 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: 70px;
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    .nav-links li {
+      width: 100%;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .nav-links a:hover {
+      background-color: #334155;
+    }
+
+    .sidebar.collapsed .link-text {
+      display: none;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: absolute;
+      top: 1rem;
+      right: -15px;
+      background-color: #1e293b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: #334155;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -220px;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .toggle-btn {
+        right: -40px;
+      }
+    }
+
+    /* Main Content */
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+      flex: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.collapsed ~ .content {
+      margin-left: 70px;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        margin-left: 0;
+      }
+      .sidebar.active ~ .content {
+        margin-left: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="logo">LOGO</div>
+    <button class="toggle-btn" id="toggleBtn"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="#"><i class="fas fa-home"></i> <span class="link-text">Home</span></a></li>
+      <li><a href="#"><i class="fas fa-user"></i> <span class="link-text">Profile</span></a></li>
+      <li><a href="#"><i class="fas fa-cog"></i> <span class="link-text">Settings</span></a></li>
+      <li><a href="#"><i class="fas fa-envelope"></i> <span class="link-text">Messages</span></a></li>
+      <li><a href="#"><i class="fas fa-sign-out-alt"></i> <span class="link-text">Logout</span></a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h1>Collapsible Sidebar Example</h1>
+    <p>This is the main content area. Resize your screen to test responsiveness.</p>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggleBtn");
+
+    toggleBtn.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("active"); // mobile slide
+      } else {
+        sidebar.classList.toggle("collapsed"); // desktop collapse
+      }
+    });
+  </script>
+</body>
+</html>
